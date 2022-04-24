@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\PortalRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,6 +14,7 @@ class Portal
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[Assert\Country]
     #[ORM\Column(type: 'string', length: 2)]
     private $countryCode;
 

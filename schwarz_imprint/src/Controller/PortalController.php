@@ -43,7 +43,12 @@ class PortalController extends AbstractController
 
         $errors = $validator->validate($portal);
         if (count($errors) > 0) {
-            return new Response((string) $errors, 400);
+            return $this->render('error.html.twig', [
+                'code' => 400,
+                'title' => 'Validation Error',
+                'message' => $errors->get(0),
+                'back' => $this->generateUrl('show_create_portal'),
+            ]);
         }
 
         $repository->add($portal);
