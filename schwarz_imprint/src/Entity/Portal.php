@@ -16,6 +16,9 @@ class Portal
     #[ORM\Column(type: 'string', length: 2)]
     private $countryCode;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $imprintLink;
+
     #[ORM\Column(type: 'text')]
     private $imprint;
 
@@ -32,6 +35,18 @@ class Portal
     public function setCountryCode(string $countryCode): self
     {
         $this->countryCode = $countryCode;
+
+        return $this;
+    }
+
+    public function getImprintLink(): ?string
+    {
+        return $this->imprintLink;
+    }
+
+    public function setImprintLink(string $imprintLink): self
+    {
+        $this->imprintLink = $imprintLink;
 
         return $this;
     }

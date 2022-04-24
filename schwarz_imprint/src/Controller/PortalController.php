@@ -36,6 +36,9 @@ class PortalController extends AbstractController
         $portal->setCountryCode(
             strtolower($request->request->get('country_code'))
         );
+        $portal->setImprintLink(
+            strtolower($request->request->get('imprint_link'))
+        );
         $portal->setImprint($request->request->get('imprint'));
 
         $errors = $validator->validate($portal);
@@ -62,6 +65,9 @@ class PortalController extends AbstractController
     public function update(Request $request, ManagerRegistry $doctrine, ValidatorInterface $validator, int $id): Response
     {
         $portal = $doctrine->getRepository(Portal::class)->find($id);
+        $portal->setImprintLink(
+            strtolower($request->request->get('imprint_link'))
+        );
         $portal->setImprint($request->request->get('imprint'));
 
         $errors = $validator->validate($portal);
