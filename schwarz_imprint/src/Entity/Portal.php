@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ImprintRepository;
+use App\Repository\PortalRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ImprintRepository::class)]
-class Imprint
+#[ORM\Entity(repositoryClass: PortalRepository::class)]
+class Portal
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -17,7 +17,7 @@ class Imprint
     private $countryCode;
 
     #[ORM\Column(type: 'text')]
-    private $body;
+    private $imprint;
 
     public function getId(): ?int
     {
@@ -36,14 +36,14 @@ class Imprint
         return $this;
     }
 
-    public function getBody(): ?string
+    public function getImprint(): ?string
     {
-        return $this->body;
+        return $this->imprint;
     }
 
-    public function setBody(string $body): self
+    public function setImprint(string $imprint): self
     {
-        $this->body = $body;
+        $this->imprint = $imprint;
 
         return $this;
     }
