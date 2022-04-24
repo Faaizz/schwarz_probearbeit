@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Edit Portal {% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <h3 class="text-dark mb-4">Edit Portal</h3>
+
+    <div class="card shadow mb-5">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 fw-bold">Edit Portal</p>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-9 col-lg-9">
+                    <form method="POST" action="{{ path('update_portal', {id: portal.id}) }}">
+                        <div class="mb-3">
+                            <label class="form-label" for="country_code">Country Code (ISO Alpha-2)<br></label>
+                            <input class="form-control" type="text" id="country_code-1" name="country_code" readonly="" disabled="" value="{{portal.countryCode}}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="imprint"><strong>Imprint</strong><br></label>
+                            <textarea class="form-control" id="imprint" rows="10" name="imprint">{{portal.imprint}}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-primary btn-sm" type="submit">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
