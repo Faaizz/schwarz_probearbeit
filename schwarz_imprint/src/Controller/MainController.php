@@ -10,10 +10,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MainController extends AbstractController
 {
-    #[Route('/{_locale}/{imprint?imprint}', name: 'app_imprint')]
+    #[Route('/{_locale<[A-Za-z]{2}>}/{imprint?imprint}', name: 'app_imprint')]
     public function imprint(string $_locale, string $imprint, PortalRepository $portalRepo): Response
     {
         $portal = $portalRepo->findOneBy(['countryCode' => strtolower($_locale), 'imprintLink' => strtolower($imprint)]);
+
+        if (!isset($portal)) {
+            throw $this->createNotFoundException('The page does not exist');
+        }
+
         return $this->render('imprint/view.html.twig', [
             'portal' => $portal,
         ]);
