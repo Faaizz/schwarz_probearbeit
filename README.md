@@ -6,7 +6,6 @@ There is no need to pay attention to the frontend design, but it can be suppleme
 It would be advantageous if the individual work steps were mapped using commits.
 Create a README file that describes how to start the application.
 Try to work on as much as possible in the time given to you.
-If you have any questions about the task, you are welcome to email Sven Hanisch (sven.hanisch@mail.schwarz), Klaus Schürg (klaus.schuerg@mail.schwarz) or Foued Dghaies (Foued.Dghaies@mail.schwarz). ) turn.
 You are welcome to provide us with the finished, executable project via any exchange platform, such as Bitbucket, Gitlab or Github.
 
 ### Introduction
