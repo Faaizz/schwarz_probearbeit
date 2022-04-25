@@ -1,0 +1,51 @@
+{# templates/base.html.twig #}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Dashboard - Schwarz-Imprint{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css') }}"/>
+            <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('fonts/fontawesome-all.min.css') }}">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+        {% endblock %}
+    </head>
+    <body id="page-top">
+    {% block body %}
+        <div id="wrapper">
+            {% block sidenav %}
+                {% include('partials/_sidenav.html.twig') %}
+            {% endblock %}
+
+            <div class="d-flex flex-column" id="content-wrapper">
+                    <div id="content">
+
+                        {% block topnav %}
+                            {% include('partials/_topnav.html.twig') %}
+                        {% endblock %}
+
+                        <div class="container-fluid">
+                            {% block content %}{% endblock %}
+                        </div>
+
+                    </div>
+
+                {% block footer %}
+                    <footer class="bg-white sticky-footer">
+                        <div class="container my-auto">
+                            <div class="text-center my-auto copyright"><span>Copyright © Mini-CMS 2022</span></div>
+                        </div>
+                    </footer>
+                    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+                {% endblock %}
+            </div>
+        </div>
+
+        {% block javascripts %}
+            <script src="bootstrap/js/bootstrap.min.js"></script>
+            <script src="js/theme.js"></script>
+        {% endblock %}
+    {% endblock %}
+    </body>
+</html>

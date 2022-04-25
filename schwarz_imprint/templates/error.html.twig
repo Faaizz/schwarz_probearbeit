@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{code}} {% endblock %}
+
+{% block sidenav %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid pb-4">
+    <div class="container-fluid">
+        <div class="text-center mt-5">
+            <div class="error mx-auto" data-text="{{code}}">
+                <p class="m-0">{{code}}</p>
+            </div>
+            <p class="text-dark mb-5 lead">{{title}}</p>
+            <p class="text-black-50 mb-0">{{message}}</p><a href="{{back}}">← Go back</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
