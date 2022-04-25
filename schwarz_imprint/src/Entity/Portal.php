@@ -14,7 +14,7 @@ class Portal
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[Assert\Country]
+    #[Assert\Locale]
     #[ORM\Column(type: 'string', length: 2)]
     private $countryCode;
 
