@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Users {% endblock %}
+
+{% block sidenav %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <h3 class="text-dark mb-4">Users</h3>
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 fw-bold">User Info</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                <table class="table my-0" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Company</th>
+                            <th>City</th>
+                            <th>Zipcode</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{user.name}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.company.name}}</td>
+                            <td>{{user.address.city}}</td>
+                            <td>{{user.address.zipcode}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td><strong>Name</strong></td>
+                            <td><strong>Email</strong></td>
+                            <td><strong>Company</strong></td>
+                            <td><strong>City</strong></td>
+                            <td><strong>Zipcode</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
