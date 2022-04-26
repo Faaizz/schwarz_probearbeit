@@ -24,7 +24,7 @@ class MainController extends AbstractController
         ]);
     }
 
-    #[Route('/', name: 'list_imprint')]
+    #[Route('/', name: 'list_pages')]
     public function default(PortalRepository $portalRepo): Response
     {
         $portals = $portalRepo->findAll();
@@ -34,8 +34,9 @@ class MainController extends AbstractController
             ] 
         ), $portals);
 
-        return $this->render('imprint/index.html.twig', [
+        return $this->render('index.html.twig', [
             'imprintLinks' => $imprintLinks,
+            'usersLink' => $this->generateUrl('app_user'),
         ]);
     }
 }
