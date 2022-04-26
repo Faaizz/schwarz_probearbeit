@@ -1,4 +1,4 @@
-#1!/bin/sh
+#!/bin/sh
 
 dockerize -wait tcp://database:5432 -timeout 120s
 
