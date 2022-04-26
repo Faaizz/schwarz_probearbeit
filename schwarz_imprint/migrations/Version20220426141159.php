@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220426131935 extends AbstractMigration
+final class Version20220426141159 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -23,12 +23,15 @@ final class Version20220426131935 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE address_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE company_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE geo_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE login_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE portal_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE "user_id_seq" INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE TABLE address (id INT NOT NULL, geo_id INT NOT NULL, street VARCHAR(255) NOT NULL, suite VARCHAR(255) NOT NULL, city VARCHAR(255) NOT NULL, zipcode VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_D4E6F81FA49D0B ON address (geo_id)');
         $this->addSql('CREATE TABLE company (id INT NOT NULL, name VARCHAR(255) NOT NULL, catch_phrase VARCHAR(255) NOT NULL, bs VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE geo (id INT NOT NULL, lat VARCHAR(255) NOT NULL, lng VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE login (id INT NOT NULL, username VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_AA08CB10F85E0677 ON login (username)');
         $this->addSql('CREATE TABLE portal (id INT NOT NULL, country_code VARCHAR(2) NOT NULL, imprint_link VARCHAR(255) NOT NULL, imprint TEXT NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE "user" (id INT NOT NULL, company_id INT NOT NULL, address_id INT NOT NULL, name VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, phone VARCHAR(255) NOT NULL, website VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_8D93D649979B1AD6 ON "user" (company_id)');
@@ -52,11 +55,13 @@ final class Version20220426131935 extends AbstractMigration
         $this->addSql('DROP SEQUENCE address_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE company_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE geo_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE login_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE portal_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE "user_id_seq" CASCADE');
         $this->addSql('DROP TABLE address');
         $this->addSql('DROP TABLE company');
         $this->addSql('DROP TABLE geo');
+        $this->addSql('DROP TABLE login');
         $this->addSql('DROP TABLE portal');
         $this->addSql('DROP TABLE "user"');
         $this->addSql('DROP TABLE messenger_messages');
