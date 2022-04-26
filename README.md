@@ -64,3 +64,7 @@ Additional users can be created via the `/register` route.
 
 ### Navigation
 All available pages can be viewed on the path `/`.
+
+
+## Testing The Application
+You can run all tests with: `./execTests`.
