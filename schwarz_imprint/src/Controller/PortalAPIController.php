@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-#[Route('/api/v1')]
+#[Route('/api/v1/legal')]
 class PortalAPIController extends AbstractController
 {
     #[Route('/portal', methods: ['GET'])]

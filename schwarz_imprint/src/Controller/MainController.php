@@ -6,11 +6,10 @@ use App\Repository\PortalRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MainController extends AbstractController
 {
-    #[Route('/{_locale<[A-Za-z]{2}>}/{imprint?imprint}', name: 'app_imprint')]
+    #[Route('/legal/{_locale<[A-Za-z]{2}>}/{imprint?imprint}', name: 'app_imprint')]
     public function imprint(string $_locale, string $imprint, PortalRepository $portalRepo): Response
     {
         $portal = $portalRepo->findOneBy(['countryCode' => strtolower($_locale), 'imprintLink' => strtolower($imprint)]);
