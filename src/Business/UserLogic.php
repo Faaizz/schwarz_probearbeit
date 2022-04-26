@@ -13,8 +13,7 @@ class UserLogic
         $this->client = $httpClient;
     }
 
-    // public function fetchUsers(): string
-    public function fetchUsers(string $apiEndpoint)
+    public function fetchUsers(string $apiEndpoint): string
     {
         $response = $this->client->request(
             'GET',
@@ -23,7 +22,6 @@ class UserLogic
         );
 
         if ($response->getStatusCode() !== 200) {
-            // TODO: Replace with user-defined exception
             throw new Exception('could not fetch users from API');
         } 
       
