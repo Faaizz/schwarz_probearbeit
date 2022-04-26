@@ -2,11 +2,11 @@ version: '3'
 
 services:
 
-  app:
+  minicmsapp:
     build:
       context: .
       dockerfile: .docker/dev.Dockerfile
-    image: si_app
+    image: minicmsapp
     volumes:
       - .:/srv/app
     command: "/usr/local/bin/docker-entrypoint.sh"
