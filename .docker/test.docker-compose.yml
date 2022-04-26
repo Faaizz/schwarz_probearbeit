@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+
+  minicmstest:
+    build:
+      context: ..
+      dockerfile: .docker/test.Dockerfile
+    image: minicmstest
+    command: "/usr/local/bin/docker-entrypoint.sh"
+
+  database:
+    image: postgres:${POSTGRES_VERSION:-13}-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe}
+      POSTGRES_USER: ${POSTGRES_USER:-symfony}
+    ports:
+      - 15433:5432
