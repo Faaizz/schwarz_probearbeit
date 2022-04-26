@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-#[Route('/legal')]
+#[Route('/portal')]
 class PortalController extends AbstractController
 {
-    #[Route('/portal', name: 'index_portal')]
+    #[Route('/legal', name: 'index_imprint')]
     #[IsGranted('ROLE_USER')]
     public function index(PortalLogic $portalLogic): Response
     {
@@ -25,14 +25,14 @@ class PortalController extends AbstractController
         ]);
     }
 
-    #[Route('/portal/new', name: 'show_create_portal', methods: ["GET"])]
+    #[Route('/legal/new', name: 'show_create_imprint', methods: ["GET"])]
     #[IsGranted('ROLE_ADMIN')]
     public function showCreate(): Response
     {
         return $this->render('portal/create.html.twig');
     }
 
-    #[Route('/portal/new', name: 'create_portal', methods: ["POST"])]
+    #[Route('/legal/new', name: 'create_imprint', methods: ["POST"])]
     #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request, PortalLogic $portalLogic): Response
     {
@@ -43,14 +43,14 @@ class PortalController extends AbstractController
                 'code' => 400,
                 'title' => 'Validation Error',
                 'message' => $result->get(0),
-                'back' => $this->generateUrl('show_create_portal'),
+                'back' => $this->generateUrl('show_create_imprint'),
             ]);
         }
 
-        return $this->redirectToRoute('index_portal');
+        return $this->redirectToRoute('index_imprint');
     }
 
-    #[Route('/portal/edit/{id}', name: 'show_update_portal', methods: ["GET"])]
+    #[Route('/legal/edit/{id}', name: 'show_update_imprint', methods: ["GET"])]
     #[IsGranted('ROLE_USER')]
     public function showUpdate(PortalRepository $repository, int $id): Response
     {
@@ -61,21 +61,28 @@ class PortalController extends AbstractController
         ]);
     }
 
-    #[Route('/portal/edit/{id}', name: 'update_portal', methods: ["POST"])]
+    #[Route('/legal/edit/{id}', name: 'update_imprint', methods: ["POST"])]
     #[IsGranted('ROLE_ADMIN')]
     public function update(Request $request, PortalLogic $portalLogic, int $id): Response
     {
         $portal = $portalLogic->update($id, $request->request->get('imprint_link'), $request->request->get('imprint'));
 
-        return $this->redirectToRoute('index_portal');
+        return $this->redirectToRoute('index_imprint');
     }
 
-    #[Route('/portal/delete/{id}', name: 'delete_portal', methods: ["GET"])]
+    #[Route('/legal/delete/{id}', name: 'delete_imprint', methods: ["GET"])]
     #[IsGranted('ROLE_ADMIN')]
     public function delete(PortalLogic $portalLogic, int $id): Response
     {
         $portalLogic->delete($id);
 
-        return $this->redirectToRoute('index_portal');
+        return $this->redirectToRoute('index_imprint');
+    }    
+
+    #[Route('/new', name: 'add_page', methods: ["GET"])]
+    #[IsGranted('ROLE_USER')]
+    public function addPage(): Response
+    {
+        return $this->render('portal/new.html.twig');
     }    
 }
