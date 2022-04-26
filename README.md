@@ -38,7 +38,6 @@ New pages and portals within the CMS may only be created and edited by the ROLE_
 ## Starting The Application
 To start a local development server:
 ```sh
-cd schwarz_imprint
 docker-compose down && docker-compose up
 ```
 
