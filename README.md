@@ -35,9 +35,33 @@ New pages and portals within the CMS may only be created and edited by the ROLE_
 
 
 
-## Development
+## Starting The Application
 To start a local development server:
 ```sh
 cd schwarz_imprint
 docker-compose down && docker-compose up
 ```
+
+### Task 1: Mini-CMS
+The base path for the Mini-CMS is `/legal/portal`. This gives the management page where portals and pages can be created, edited, and deleted.
+
+### Task 2: REST API
+The REST API is available at `/api/v1/legal/portal`.
+The CRUD endpoints are:
+- Create: POST `/api/v1/legal/portal`
+- Read: GET `/api/v1/legal/portal`
+- Update: PUT/PATCH `/api/v1/legal/portal/{id}`
+- Delete: DELETE `/api/v1/legal/portal/{id}`.
+
+### Task 3: User Overview
+A table with retrieved users can be found at the path `http://localhost:8000/users`.
+
+### Task 4: Authentication
+Two users have been created for login:
+1. User: `admin` with password: `password` and roles: `[ROLE_USER, ROLE_ADMIN]`
+2. User: `user` with password: `password` and roles: `[ROLE_USER]`.
+
+Additional users can be created via the `/register` route.
+
+### Navigation
+All available pages can be viewed on the path `/`.
