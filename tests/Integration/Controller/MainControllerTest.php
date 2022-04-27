@@ -28,7 +28,7 @@ class MainControllerTest extends WebTestCase
     public function testLegalPageNotExist()
     {
         $testData = [
-            'countryCode' => 'en',
+            'countryCode' => 'EN',
             'pagePath' => 'legal-notice',
             'content' => 'Legal Notice',
         ];
@@ -44,7 +44,7 @@ class MainControllerTest extends WebTestCase
     public function testLegalPageNoAuth()
     {
         $testData = [
-            'countryCode' => 'bs',
+            'countryCode' => 'BS',
             'pagePath' => 'legal-notice',
             'content' => 'Legal Notice',
         ];
