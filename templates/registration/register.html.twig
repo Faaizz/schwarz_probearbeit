@@ -1,17 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %} Register {% endblock %}
 
-{% block body %}
-    <h1>Register</h1>
+{% block content %}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+<div class="container">
+    <div class="card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+            <div class="row d-lg-flex d-xl-flex justify-content-lg-center justify-content-xl-center">
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">Create an Account!</h4>
+                        </div>
+                        <form class="user" action="{{ path('app_register') }}" method="post">
+                            <div class="mb-3"><input class="form-control form-control-user" type="text" id="exampleInputEmail" placeholder="Username" name="username"></div>
+                            <div class="row mb-3">
+                                <div class="col-sm-12 mb-3 mb-sm-0"><input class="form-control form-control-user" type="password" id="examplePasswordInput" placeholder="Password" name="plainPassword"></div>
+                            </div>
+                            <button class="btn btn-primary d-block btn-user w-100" type="submit">Register Account</button>
+                            <hr>
+                        </form>
+                        <div class="text-center"><a class="small" href="{{ path('app_login') }}">Already have an account? Login!</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
 {% endblock %}
