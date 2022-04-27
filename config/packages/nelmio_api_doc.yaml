@@ -3,10 +3,10 @@ nelmio_api_doc:
         openapi: 3.0.0
         info:
             title: Mini CMS
-            description: This is the API of theImprint Portal of Mini CMS.
+            description: This is the API of the Page Management System of Mini CMS.
             version: '1.0'
         paths:
-            /api/v1/portal/legal:
+            /api/v1/portal/pages:
                 get:
                     description: To get the current legal pages.
                     responses:
@@ -15,7 +15,7 @@ nelmio_api_doc:
                             content:
                                 application/json:
                                     schema:
-                                        $ref: '#/components/schemas/PortalImprints'
+                                        $ref: '#/components/schemas/PortalPages'
                 post:
                     description: To create a new legal portal page.
                     requestBody:
@@ -23,21 +23,21 @@ nelmio_api_doc:
                         content:
                             application/json:
                                 schema:
-                                    $ref: '#/components/schemas/PortalImprint'
+                                    $ref: '#/components/schemas/PortalPage'
                     responses:
                         '201':
                             description: Created a new legal page successfully.
                             content:
                                 application/json:
                                     schema:
-                                        $ref: '#/components/schemas/PortalImprintResponse'
+                                        $ref: '#/components/schemas/PortalPageResponse'
                         '400':
                             description: Validation error occured.
                             content:
                                 application/json:
                                     schema:
                                         $ref: '#/components/schemas/GeneralError'
-            /api/v1/portal/legal/{id}:
+            /api/v1/portal/pages/{id}:
                 put:
                     description: To update a legal portal page.
                     parameters:
@@ -51,14 +51,14 @@ nelmio_api_doc:
                         content:
                             application/json:
                                 schema:
-                                    $ref: '#/components/schemas/PortalImprintFragment'
+                                    $ref: '#/components/schemas/PortalPageFragment'
                     responses:
                         '200':
                             description: Updated a legal page successfully.
                             content:
                                 application/json:
                                     schema:
-                                        $ref: '#/components/schemas/PortalImprintResponse'
+                                        $ref: '#/components/schemas/PortalPageResponse'
                         '404':
                             description: Not found error occured.
                             content:
@@ -79,7 +79,7 @@ nelmio_api_doc:
                             content:
                                 application/json:
                                     schema:
-                                        $ref: '#/components/schemas/PortalImprintResponse'
+                                        $ref: '#/components/schemas/PortalPageResponse'
                         '404':
                             description: Not found error occured.
                             content:
@@ -108,24 +108,24 @@ nelmio_api_doc:
                                 description: The error message
                                 type: string
                                 example: 'Not a valid countryCode'
-                PortalImprintFragment:
+                PortalPageFragment:
                     allOf:
                         - type: object
                           required:
-                            - imprintLink
-                            - imprint
+                            - pagePath
+                            - content
                           properties:
-                            imprintLink:
-                                description: The imprint link which is attached to the portal countryCode to access the portal imprint.
+                            pagePath:
+                                description: The page link which is attached to the portal countryCode to access the portal page.
                                 type: string
                                 example: 'impressum'
-                            imprint:
-                                description: The actual content of the imprint.
+                            content:
+                                description: The actual content of the page.
                                 type: string
                                 example: 'This website is operated by:\r\n\r\nSchwarz Unternehmenskommunikation GmbH & Co. KG\r\nStiftsbergstraße 1\r\n74172 Neckarsulm, Germany\r\nLocation: Neckarsulm\r\nAmtsgericht Stuttgart (Local Court): HRA 735837\r\nVAT ID no.: DE325553499\r\n\r\nSchwarz Unternehmenskommunikation GmbH & Co. KG is represented by the Schwarz Unternehmenskommunikation Beteiligungs-GmbH based in Neckarsulm, registered with registration court Stuttgart HRB 769866, which in turn is represented by two managing directors with authority of joint representation, Gerd Wolf and Leonie Knorpp.\r\n\r\nPhone: + 49 (0)7132 – 30788600\r\nE-mail: kontakt@mail.schwarz\r\n\r\n'
-                PortalImprint:
+                PortalPage:
                     allOf:
-                        - $ref: '#/components/schemas/PortalImprintFragment'
+                        - $ref: '#/components/schemas/PortalPageFragment'
                         - type: object
                           required:
                             - countryCode
@@ -134,22 +134,22 @@ nelmio_api_doc:
                                 description: The portal countryCode
                                 type: string
                                 example: 'de'
-                PortalImprintResponse:
+                PortalPageResponse:
                     allOf:
-                        - $ref: '#/components/schemas/PortalImprint'
+                        - $ref: '#/components/schemas/PortalPage'
                         - type: object
                           required:
                             - id
                           properties:
                             id:
-                                description: The imprint id
+                                description: The page id
                                 type: string
                                 example: '4'
-                PortalImprints:
+                PortalPages:
                     allOf:
                         - type: array
                           items:
-                            $ref: '#/components/schemas/PortalImprintResponse'
+                            $ref: '#/components/schemas/PortalPageResponse'
 
     areas: # to filter documented areas
         path_patterns:

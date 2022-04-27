@@ -55,7 +55,7 @@ class RegistrationController extends AbstractController
             $request,
         );
 
-        return $this->redirectToRoute('index_imprint');
+        return $this->redirectToRoute('index_pages');
 
     }
 }

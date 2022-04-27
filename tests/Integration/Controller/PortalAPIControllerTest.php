@@ -3,9 +3,9 @@
 namespace App\Tests\Integration\Controller;
 
 use App\Entity\Login;
-use App\Entity\Portal;
+use App\Entity\PortalPage;
 use App\Repository\LoginRepository;
-use App\Repository\PortalRepository;
+use App\Repository\PortalPageRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Faker;
 
@@ -20,7 +20,7 @@ class PortalAPIControllerTest extends WebTestCase
     {
         $this->client = static::createClient();
         $this->portalRepository = static::getContainer()
-            ->get(PortalRepository::class);
+            ->get(PortalPageRepository::class);
         $this->userLoginRepository = static::getContainer()
             ->get(LoginRepository::class);
         $this->faker = Faker\Factory::create();
@@ -28,21 +28,21 @@ class PortalAPIControllerTest extends WebTestCase
 
     public function testIndex()
     {
-        $testPortal1 = new Portal();
+        $testPortal1 = new PortalPage();
         $testPortal1->setCountryCode($this->faker->countryCode());
-        $testPortal1->setImprintLink( $this->faker->word());
-        $testPortal1->setImprint( $this->faker->word());
+        $testPortal1->setPagePath( $this->faker->word());
+        $testPortal1->setContent( $this->faker->word());
         $this->portalRepository->add($testPortal1);
 
-        $testPortal2 = new Portal();
+        $testPortal2 = new PortalPage();
         $testPortal2->setCountryCode($this->faker->countryCode());
-        $testPortal2->setImprintLink( $this->faker->word());
-        $testPortal2->setImprint( $this->faker->word());
+        $testPortal2->setPagePath( $this->faker->word());
+        $testPortal2->setContent( $this->faker->word());
         $this->portalRepository->add($testPortal2);
 
         $this->client->request(
             'GET',
-            '/api/v1/portal/legal',
+            '/api/v1/portal/pages',
         );
 
         $this->assertTrue($this->client->getResponse()->isOk());
@@ -57,23 +57,23 @@ class PortalAPIControllerTest extends WebTestCase
         $countryCode = $this->faker->countryCode();
         $body = [
             'country_code' => $countryCode,
-            'imprint_link' => $this->faker->word(),
-            'imprint' => $this->faker->word(),
+            'page_path' => $this->faker->word(),
+            'content' => $this->faker->word(),
         ];
 
         $this->client->jsonRequest(
             'POST',
-            '/api/v1/portal/legal',
+            '/api/v1/portal/pages',
             $body
         );
 
         $this->assertTrue($this->client->getResponse()->isSuccessful());
 
-        $imprintPortalCreated =$this->portalRepository->findOneBy([
+        $portalPageCreated =$this->portalRepository->findOneBy([
             'countryCode' => $countryCode,
         ]);
 
-        $this->assertNotNull($imprintPortalCreated);
+        $this->assertNotNull($portalPageCreated);
     }
 
     public function testCreateFail()
@@ -81,63 +81,63 @@ class PortalAPIControllerTest extends WebTestCase
         $countryCode = '99';
         $body = [
             'country_code' => $countryCode,
-            'imprint_link' => $this->faker->word(),
-            'imprint' => $this->faker->word(),
+            'page_path' => $this->faker->word(),
+            'content' => $this->faker->word(),
         ];
 
         $this->client->jsonRequest(
             'POST',
-            '/api/v1/portal/legal',
+            '/api/v1/portal/pages',
             $body
         );
 
         $this->assertTrue($this->client->getResponse()->isClientError());
 
-        $imprintPortalCreated =$this->portalRepository->findOneBy([
+        $portalPageCreated =$this->portalRepository->findOneBy([
             'countryCode' => $countryCode,
         ]);
 
-        $this->assertNull($imprintPortalCreated);
+        $this->assertNull($portalPageCreated);
     }
 
     public function testUpdateSuccess()
     {
-        $testPortal1 = new Portal();
+        $testPortal1 = new PortalPage();
         $testPortal1->setCountryCode($this->faker->countryCode());
-        $testPortal1->setImprintLink( $this->faker->word());
-        $testPortal1->setImprint( $this->faker->word());
+        $testPortal1->setPagePath( $this->faker->word());
+        $testPortal1->setContent( $this->faker->word());
         $this->portalRepository->add($testPortal1);
 
-        $newImprintLink = 'impressium';
+        $newpagePath = 'impressium';
         $body = [
-            'imprint_link' => $newImprintLink,
-            'imprint' => 'Hi hi hi'
+            'page_path' => $newpagePath,
+            'content' => 'Hi hi hi'
         ];
 
         $this->client->jsonRequest(
             'PUT',
-            '/api/v1/portal/legal/' . $testPortal1->getId(),
+            '/api/v1/portal/pages/' . $testPortal1->getId(),
             $body,
         );
 
         $this->assertTrue($this->client->getResponse()->isSuccessful());
 
-        $imprintPortalUpdated =$this->portalRepository->find($testPortal1->getId());
+        $portalPageUpdated =$this->portalRepository->find($testPortal1->getId());
 
-        $this->assertEquals($newImprintLink, $imprintPortalUpdated->getImprintLink());
+        $this->assertEquals($newpagePath, $portalPageUpdated->getPagePath());
     }
 
     public function testUpdateFail()
     {
-        $newImprintLink = 'impressium';
+        $newpagePath = 'impressium';
         $body = [
-            'imprint_link' => $newImprintLink,
-            'imprint' => 'Hi hi hi'
+            'page_path' => $newpagePath,
+            'content' => 'Hi hi hi'
         ];
 
         $this->client->jsonRequest(
             'PUT',
-            '/api/v1/portal/legal/999',
+            '/api/v1/portal/pages/999',
             $body
         );
 
@@ -147,33 +147,33 @@ class PortalAPIControllerTest extends WebTestCase
     public function testDelete()
     {
         $countryCode = $this->faker->countryCode();
-        $testPortal1 = new Portal();
+        $testPortal1 = new PortalPage();
         $testPortal1->setCountryCode($countryCode);
-        $testPortal1->setImprintLink( $this->faker->word());
-        $testPortal1->setImprint( $this->faker->word());
+        $testPortal1->setPagePath( $this->faker->word());
+        $testPortal1->setContent( $this->faker->word());
         $this->portalRepository->add($testPortal1);
 
-        $imprintID = $testPortal1->getId();
+        $pageID = $testPortal1->getId();
 
-        $imprintPortal = $this->portalRepository->find($imprintID);
+        $portalPage = $this->portalRepository->find($pageID);
 
-        $this->assertEquals($countryCode, $imprintPortal->getCountryCode());
+        $this->assertEquals($countryCode, $portalPage->getCountryCode());
 
         $this->client->jsonRequest(
             'DELETE',
-            '/api/v1/portal/legal/' . $imprintID,
+            '/api/v1/portal/pages/' . $pageID,
         );
 
-        $imprintPortal = $this->portalRepository->find($imprintID);
+        $portalPage = $this->portalRepository->find($pageID);
 
-        $this->assertNull($imprintPortal);
+        $this->assertNull($portalPage);
     }
 
     public function testDeleteFail()
     {
         $this->client->jsonRequest(
             'DELETE',
-            '/api/v1/portal/legal/999',
+            '/api/v1/portal/pages/999',
         );
 
         $this->assertTrue($this->client->getResponse()->isNotFound());

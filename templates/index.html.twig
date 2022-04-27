@@ -8,8 +8,8 @@
     <h3 class="text-dark mb-4">{{ "All Pages"|trans }}</h3>
 
     <ul class="navbar-nav text-light" id="accordionSidebar">
-        {% for imprintLink in imprintLinks %}
-        <li class="nav-item"><a class="nav-link active" target="_blank" href="{{imprintLink}}"></i><span>{{imprintLink}}</span></a></li>
+        {% for pagePath in pagePaths %}
+        <li class="nav-item"><a class="nav-link active" target="_blank" href="{{pagePath}}"></i><span>{{pagePath}}</span></a></li>
         {% endfor %}
     </ul>
 

@@ -2,8 +2,8 @@
 
 namespace App\Tests\Integration\Controller;
 
-use App\Entity\Portal;
-use App\Repository\PortalRepository;
+use App\Entity\PortalPage;
+use App\Repository\PortalPageRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class MainControllerTest extends WebTestCase
@@ -15,7 +15,7 @@ class MainControllerTest extends WebTestCase
     {
         $this->client = static::createClient();
         $this->portalRepository = static::getContainer()
-            ->get(PortalRepository::class);
+            ->get(PortalPageRepository::class);
     }
 
     public function testListPagesNoAuth()
@@ -29,13 +29,13 @@ class MainControllerTest extends WebTestCase
     {
         $testData = [
             'countryCode' => 'en',
-            'imprintLink' => 'legal-notice',
-            'imprint' => 'Legal Notice',
+            'pagePath' => 'legal-notice',
+            'content' => 'Legal Notice',
         ];
 
         $this->client->request(
             'GET', 
-            sprintf('/legal/%s/%s', $testData['countryCode'], $testData['imprintLink'])
+            sprintf('/pages/%s/%s', $testData['countryCode'], $testData['pagePath'])
         );
 
         $this->assertTrue($this->client->getResponse()->isNotFound());
@@ -45,18 +45,18 @@ class MainControllerTest extends WebTestCase
     {
         $testData = [
             'countryCode' => 'bs',
-            'imprintLink' => 'legal-notice',
-            'imprint' => 'Legal Notice',
+            'pagePath' => 'legal-notice',
+            'content' => 'Legal Notice',
         ];
-        $newLegalPage = new Portal();
+        $newLegalPage = new PortalPage();
         $newLegalPage->setCountryCode($testData['countryCode']);
-        $newLegalPage->setImprint($testData['imprint']);
-        $newLegalPage->setImprintLink($testData['imprintLink']);
+        $newLegalPage->setContent($testData['content']);
+        $newLegalPage->setPagePath($testData['pagePath']);
         $this->portalRepository->add($newLegalPage);
 
         $this->client->request(
             'GET', 
-            sprintf('/legal/%s/%s', $testData['countryCode'], $testData['imprintLink'])
+            sprintf('/pages/%s/%s', $testData['countryCode'], $testData['pagePath'])
         );
 
         $this->assertTrue($this->client->getResponse()->isOk());

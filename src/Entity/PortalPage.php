@@ -3,11 +3,13 @@
 namespace App\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Repository\PortalRepository;
+use App\Repository\PortalPageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-#[ORM\Entity(repositoryClass: PortalRepository::class)]
-class Portal
+#[UniqueEntity(['countryCode', 'pagePath'])]
+#[ORM\Entity(repositoryClass: PortalPageRepository::class)]
+class PortalPage
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,10 +21,10 @@ class Portal
     private $countryCode;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $imprintLink;
+    private $pagePath;
 
     #[ORM\Column(type: 'text')]
-    private $imprint;
+    private $content;
 
     public function getId(): ?int
     {
@@ -41,26 +43,26 @@ class Portal
         return $this;
     }
 
-    public function getImprintLink(): ?string
+    public function getPagePath(): ?string
     {
-        return $this->imprintLink;
+        return $this->pagePath;
     }
 
-    public function setImprintLink(string $imprintLink): self
+    public function setPagePath(string $pagePath): self
     {
-        $this->imprintLink = $imprintLink;
+        $this->pagePath = $pagePath;
 
         return $this;
     }
 
-    public function getImprint(): ?string
+    public function getContent(): ?string
     {
-        return $this->imprint;
+        return $this->content;
     }
 
-    public function setImprint(string $imprint): self
+    public function setContent(string $content): self
     {
-        $this->imprint = $imprint;
+        $this->content = $content;
 
         return $this;
     }

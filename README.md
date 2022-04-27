@@ -31,7 +31,7 @@ Set up a Symfony application version 5 (or higher) within a Docker environment.
 There should be 2 portals in the application:
 • DE
 • EN
-Each portal has an imprint page (e.g. localhost/de/impressum or localhost/en/imprint). Under this link, only the content for the appropriate language is output. A maintenance option should be created in which the imprint for the respective portal can be created or changed.
+Each portal has an legal page (e.g. localhost/de/impressum or localhost/en/imprint). Under this link, only the content for the appropriate language is output. A maintenance option should be created in which the legal page for the respective portal can be created or changed.
 
 ### Task 2
 Create a REST API that can be used to retrieve the data from Task 1 as JSON.
@@ -58,20 +58,20 @@ To start a local development server:
 ```
 
 ### Task 1: Mini-CMS
-The base path for the Mini-CMS is [http://localhost:8000/legal/portal](http://localhost:8000/legal/portal). This gives the management page where portals and pages can be created, edited, and deleted.
+The base path for the Mini-CMS is [http://localhost:8000/portal/pages](http://localhost:8000/portal/pages). This gives the management page where portals and pages can be created, edited, and deleted.
 
 #### Navigation
 All available pages can be viewed on the path [http://localhost:8000/](http://localhost:8000/).
 
 ### Task 2: REST API
 API Docs available at: [http://localhost:8000/api/doc](http://localhost:8000/api/doc).
-The REST API is available at [http://localhost:8000/api/v1/legal/portal](http://localhost:8000/api/v1/legal/portal).
+The REST API is available at [http://localhost:8000/api/v1/portal/pages](http://localhost:8000/api/v1/portal/pages).
 
 The CRUD endpoints are:
-- Create: POST [http://localhost:8000/api/v1/legal/portal](http://localhost:8000/api/v1/legal/portal)
-- Read: GET [http://localhost:8000/api/v1/legal/portal](http://localhost:8000/api/v1/legal/portal)
-- Update: PUT/PATCH [http://localhost:8000/api/v1/legal/portal/{id}](http://localhost:8000/api/v1/legal/portal/{id})
-- Delete: DELETE [http://localhost:8000/api/v1/legal/portal/{id}](http://localhost:8000/api/v1/legal/portal/{id})
+- Create: POST [http://localhost:8000/api/v1/portal/pages](http://localhost:8000/api/v1/portal/pages)
+- Read: GET [http://localhost:8000/api/v1/portal/pages](http://localhost:8000/api/v1/portal/pages)
+- Update: PUT/PATCH [http://localhost:8000/api/v1/portal/pages/{id}](http://localhost:8000/api/v1/portal/pages/{id})
+- Delete: DELETE [http://localhost:8000/api/v1/portal/pages/{id}](http://localhost:8000/api/v1/portal/pages/{id})
 
 
 ### Task 3: User Overview
