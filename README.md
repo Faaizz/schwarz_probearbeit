@@ -52,6 +52,8 @@ The CRUD endpoints are:
 - Update: PUT/PATCH `/api/v1/legal/portal/{id}`
 - Delete: DELETE `/api/v1/legal/portal/{id}`.
 
+API Docs available at: `/api-docs`
+
 ### Task 3: User Overview
 A table with retrieved users can be found at the path `http://localhost:8000/users`.
 
