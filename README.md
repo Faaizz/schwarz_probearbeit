@@ -54,7 +54,7 @@ New pages and portals within the CMS may only be created and edited by the ROLE_
 ## Starting The Application
 To start a local development server:
 ```sh
-./startDevServer
+./startDevServer.sh
 ```
 
 ### Task 1: Mini-CMS
@@ -86,4 +86,4 @@ Additional users can be created via the [http://localhost:8000/register](http://
 
 
 ## Testing The Application
-You can run all tests with: `./execTests`.
+You can run all tests with: `./execTests.sh`.
