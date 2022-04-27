@@ -61,6 +61,9 @@ WORKDIR /usr/local/bin
 ARG ARCH="amd64"
 ENV ARCH ${ARCH}
 
+# Install commposer
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
 # Install symfony-cli
 RUN wget https://github.com/symfony-cli/symfony-cli/releases/download/v5.4.8/symfony-cli_linux_${ARCH}.tar.gz -O symfony-cli.tar.gz && \
     tar -xf symfony-cli.tar.gz \
