@@ -2,8 +2,8 @@
 
 namespace App\Business;
 
-use App\Entity\Portal;
-use App\Repository\PortalRepository;
+use App\Entity\PortalPage;
+use App\Repository\PortalPageRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
@@ -15,7 +15,7 @@ class PortalLogic
     private $validator;
     private $entityManager;
 
-    public function __construct(PortalRepository $portalRepository, ValidatorInterface $validator, ManagerRegistry $doctrine)
+    public function __construct(PortalPageRepository $portalRepository, ValidatorInterface $validator, ManagerRegistry $doctrine)
     {
         $this->portalRepository = $portalRepository;
         $this->validator = $validator;
@@ -27,12 +27,12 @@ class PortalLogic
         return $this->portalRepository->findAll();
     }
 
-    public function create(string $countryCode, string $imprintLink, string $imprint): Portal | ConstraintViolationListInterface
+    public function create(string $countryCode, string $pagePath, string $content): PortalPage | ConstraintViolationListInterface
     {
-        $portal = new Portal();
+        $portal = new PortalPage();
         $portal->setCountryCode(strtoupper($countryCode));
-        $portal->setImprintLink(($imprintLink));
-        $portal->setImprint($imprint);
+        $portal->setPagePath(($pagePath));
+        $portal->setContent($content);
 
         $errors = $this->validator->validate($portal);
         if (count($errors) > 0) {
@@ -44,11 +44,11 @@ class PortalLogic
         return $portal;
     }
 
-    public function update(int $id, string $imprintLink, string $imprint): Portal
+    public function update(int $id, string $pagePath, string $content): PortalPage
     {
         $portal = $this->portalRepository->find($id);
-        $portal->setImprintLink(strtolower($imprintLink));
-        $portal->setImprint($imprint);
+        $portal->setPagePath(strtolower($pagePath));
+        $portal->setContent($content);
 
         $this->entityManager->flush();
         return $portal;

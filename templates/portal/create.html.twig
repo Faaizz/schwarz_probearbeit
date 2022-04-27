@@ -1,31 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Create Portal {% endblock %}
+{% block title %} Create Page {% endblock %}
 
 {% block content %}
 
 <div class="container-fluid">
-    <h3 class="text-dark mb-4">New Portal</h3>
+    <h3 class="text-dark mb-4">New Page</h3>
 
     <div class="card shadow mb-5">
         <div class="card-header py-3">
-            <p class="text-primary m-0 fw-bold">New Portal</p>
+            <p class="text-primary m-0 fw-bold">New Page</p>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-9 col-lg-9">
-                    <form method="POST" action="{{ path('create_imprint') }}">
+                    <form method="POST" action="{{ path('create_page') }}">
                         <div class="mb-3">
                             <label class="form-label" for="country_code">Country Code (ISO Alpha-2)<br></label>
                             <input class="form-control" type="text" id="country_code-1" name="country_code">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="imprint_link">Imprint Link<br></label>
-                            <input class="form-control" type="text" id="imprint_link-1" name="imprint_link">
+                            <label class="form-label" for="page_path">Page Path<br></label>
+                            <input class="form-control" type="text" id="page_path-1" name="page_path">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="imprint"><strong>Imprint</strong><br></label>
-                            <textarea class="form-control" id="imprint" rows="10" name="imprint"></textarea>
+                            <label class="form-label" for="content"><strong>Content</strong><br></label>
+                            <textarea class="form-control" id="content" rows="10" name="content"></textarea>
                         </div>
                         <div class="mb-3">
                             <button class="btn btn-primary btn-sm" type="submit">Save</button>

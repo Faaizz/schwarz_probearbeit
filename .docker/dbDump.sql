@@ -185,24 +185,24 @@ ALTER SEQUENCE public.messenger_messages_id_seq OWNED BY public.messenger_messag
 
 
 --
--- Name: portal; Type: TABLE; Schema: public; Owner: symfony
+-- Name: portal_page; Type: TABLE; Schema: public; Owner: symfony
 --
 
-CREATE TABLE public.portal (
+CREATE TABLE public.portal_page (
     id integer NOT NULL,
     country_code character varying(2) NOT NULL,
-    imprint_link character varying(255) NOT NULL,
-    imprint text NOT NULL
+    page_path character varying(255) NOT NULL,
+    content text NOT NULL
 );
 
 
-ALTER TABLE public.portal OWNER TO symfony;
+ALTER TABLE public.portal_page OWNER TO symfony;
 
 --
--- Name: portal_id_seq; Type: SEQUENCE; Schema: public; Owner: symfony
+-- Name: portal_page_id_seq; Type: SEQUENCE; Schema: public; Owner: symfony
 --
 
-CREATE SEQUENCE public.portal_id_seq
+CREATE SEQUENCE public.portal_page_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -210,7 +210,7 @@ CREATE SEQUENCE public.portal_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.portal_id_seq OWNER TO symfony;
+ALTER TABLE public.portal_page_id_seq OWNER TO symfony;
 
 --
 -- Name: user; Type: TABLE; Schema: public; Owner: symfony
@@ -272,7 +272,7 @@ COPY public.company (id, name, catch_phrase, bs) FROM stdin;
 --
 
 COPY public.doctrine_migration_versions (version, executed_at, execution_time) FROM stdin;
-DoctrineMigrations\\Version20220426162903	2022-04-26 17:02:14	277
+DoctrineMigrations\\Version20220427085835	2022-04-27 08:58:55	181
 \.
 
 
@@ -289,8 +289,8 @@ COPY public.geo (id, lat, lng) FROM stdin;
 --
 
 COPY public.login (id, username, roles, password) FROM stdin;
-1	admin	["ROLE_ADMIN", "ROLE_USER"]	$2y$13$HXObtEK2IYGyqwCDG1Z9aOtZnIryMVLOtkj4DVV9fH2ieYohGOxHK
-2	user	[]	$2y$13$dzaJOAGAOYur8zllu1xECeYfb0PkZgpBJOIXC6QhdtDCR/W9Ah9uq
+1	user	[]	$2y$13$VrjnR3CmLvkwura7RxRs2uDTV.aSui6e.n.fHKRB88c1oYPYjspKq
+2	admin	["ROLE_USER", "ROLE_ADMIN"]	$2y$13$gz8b8F6R9UBT3Q6EqDtcIeBT5NhbnULa2B/ua.AytyFVlHtjUcdsC
 \.
 
 
@@ -303,12 +303,12 @@ COPY public.messenger_messages (id, body, headers, queue_name, created_at, avail
 
 
 --
--- Data for Name: portal; Type: TABLE DATA; Schema: public; Owner: symfony
+-- Data for Name: portal_page; Type: TABLE DATA; Schema: public; Owner: symfony
 --
 
-COPY public.portal (id, country_code, imprint_link, imprint) FROM stdin;
-2	en	legal-notice	This website is operated by:\r\n\r\nSchwarz Unternehmenskommunikation GmbH & Co. KG\r\nStiftsbergstraße 1\r\n74172 Neckarsulm, Germany\r\nLocation: Neckarsulm\r\nAmtsgericht Stuttgart (Local Court): HRA 735837\r\nVAT ID no.: DE325553499\r\n\r\nSchwarz Unternehmenskommunikation GmbH & Co. KG is represented by the Schwarz Unternehmenskommunikation Beteiligungs-GmbH based in Neckarsulm, registered with registration court Stuttgart HRB 769866, which in turn is represented by two managing directors with authority of joint representation, Gerd Wolf and Leonie Knorpp.\r\n\r\nPhone: + 49 (0)7132 – 30788600\r\nE-mail: kontakt@mail.schwarz\r\n\r\n
-1	de	impressum	Diese Internetseite wird betrieben von:\r\n\r\nSchwarz Unternehmenskommunikation GmbH & Co. KG\r\nStiftsbergstraße 1\r\n74172 Neckarsulm\r\nSitz: Neckarsulm\r\nAmtsgericht Stuttgart: HRA 735837\r\nUSt-IdNr.: DE325553499\r\n\r\nDie Schwarz Unternehmenskommunikation GmbH & Co. KG wird vertreten durch die Schwarz Unternehmenskommunikation Beteiligungs-GmbH mit Sitz in Neckarsulm, Registergericht Stuttgart, HRB 769866, die ihrerseits gemeinsam durch zwei gesamtvertretungsberechtigte Geschäftsführer, Gerd Wolf und Leonie Knorpp, vertreten wird.\r\n\r\nTelefon: + 49 (0)7132 – 30788600\r\nE-Mail: kontakt@mail.schwarz
+COPY public.portal_page (id, country_code, page_path, content) FROM stdin;
+1	DE	impressum	<p><strong>Diese Internetseite wird betrieben von:</strong></p><p>Schwarz Unternehmenskommunikation GmbH &amp; Co. KG<br>Stiftsbergstra&szlig;e 1<br>74172 Neckarsulm<br>Sitz: Neckarsulm<br>Amtsgericht Stuttgart: HRA 735837<br>USt-IdNr.: DE325553499</p><p>Die Schwarz Unternehmenskommunikation GmbH &amp; Co. KG wird vertreten durch die Schwarz Unternehmenskommunikation Beteiligungs-GmbH mit Sitz in Neckarsulm, Registergericht Stuttgart, HRB 769866, die ihrerseits gemeinsam durch zwei gesamtvertretungsberechtigte Gesch&auml;ftsf&uuml;hrer, Gerd Wolf und Leonie Knorpp, vertreten wird.</p><p>Telefon: + 49 (0)7132 &ndash; 30788600<br>E-Mail: <a href="">kontakt</a><a href="mailto:kontakt@mail.schwarz" target="_blank" title="kontakt@mail.schwarz">@mail.schwarz</a></p>
+2	US	legal-notice	 <p><strong>This website is operated by:</strong></p><p>Schwarz Unternehmenskommunikation GmbH &amp; Co. KG<br>Stiftsbergstra&szlig;e 1<br>74172 Neckarsulm, Germany<br>Location: Neckarsulm<br>Amtsgericht Stuttgart (Local Court): HRA 735837<br>VAT ID no.: DE325553499</p><p>Schwarz Unternehmenskommunikation GmbH &amp; Co. KG is represented by the Schwarz Unternehmenskommunikation Beteiligungs-GmbH based in Neckarsulm, registered with registration court Stuttgart HRB 769866, which in turn is represented by two managing directors with authority of joint representation, Gerd Wolf and Leonie Knorpp.</p><p>Phone: + 49 (0)7132 &ndash; 30788600<br>E-mail: <a href="">kontakt</a><a href="mailto:kontakt@mail.schwarz" target="_blank" title="kontakt@mail.schwarz">@mail.schwarz</a></p><h2>&nbsp;</h2>\r\n
 \.
 
 
@@ -356,10 +356,10 @@ SELECT pg_catalog.setval('public.messenger_messages_id_seq', 1, false);
 
 
 --
--- Name: portal_id_seq; Type: SEQUENCE SET; Schema: public; Owner: symfony
+-- Name: portal_page_id_seq; Type: SEQUENCE SET; Schema: public; Owner: symfony
 --
 
-SELECT pg_catalog.setval('public.portal_id_seq', 2, true);
+SELECT pg_catalog.setval('public.portal_page_id_seq', 2, true);
 
 
 --
@@ -418,11 +418,11 @@ ALTER TABLE ONLY public.messenger_messages
 
 
 --
--- Name: portal portal_pkey; Type: CONSTRAINT; Schema: public; Owner: symfony
+-- Name: portal_page portal_page_pkey; Type: CONSTRAINT; Schema: public; Owner: symfony
 --
 
-ALTER TABLE ONLY public.portal
-    ADD CONSTRAINT portal_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.portal_page
+    ADD CONSTRAINT portal_page_pkey PRIMARY KEY (id);
 
 
 --

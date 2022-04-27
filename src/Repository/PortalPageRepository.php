@@ -2,32 +2,32 @@
 
 namespace App\Repository;
 
-use App\Entity\Portal;
+use App\Entity\PortalPage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Portal>
+ * @extends ServiceEntityRepository<PortalPage>
  *
- * @method Portal|null find($id, $lockMode = null, $lockVersion = null)
- * @method Portal|null findOneBy(array $criteria, array $orderBy = null)
- * @method Portal[]    findAll()
- * @method Portal[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method PortalPage|null find($id, $lockMode = null, $lockVersion = null)
+ * @method PortalPage|null findOneBy(array $criteria, array $orderBy = null)
+ * @method PortalPage[]    findAll()
+ * @method PortalPage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PortalRepository extends ServiceEntityRepository
+class PortalPageRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Portal::class);
+        parent::__construct($registry, PortalPage::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Portal $entity, bool $flush = true): void
+    public function add(PortalPage $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -39,7 +39,7 @@ class PortalRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Portal $entity, bool $flush = true): void
+    public function remove(PortalPage $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -48,7 +48,7 @@ class PortalRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Portal[] Returns an array of Portal objects
+    //  * @return PortalPage[] Returns an array of PortalPage objects
     //  */
     /*
     public function findByExampleField($value)
@@ -65,7 +65,7 @@ class PortalRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Portal
+    public function findOneBySomeField($value): ?PortalPage
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.exampleField = :val')

@@ -3,9 +3,9 @@
 namespace App\Tests\Integration\Controller;
 
 use App\Entity\Login;
-use App\Entity\Portal;
+use App\Entity\PortalPage;
 use App\Repository\LoginRepository;
-use App\Repository\PortalRepository;
+use App\Repository\PortalPageRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Faker;
 
@@ -20,7 +20,7 @@ class PortalControllerTest extends WebTestCase
     {
         $this->client = static::createClient();
         $this->portalRepository = static::getContainer()
-            ->get(PortalRepository::class);
+            ->get(PortalPageRepository::class);
         $this->userLoginRepository = static::getContainer()
             ->get(LoginRepository::class);
         $this->faker = Faker\Factory::create();
@@ -47,11 +47,11 @@ class PortalControllerTest extends WebTestCase
         return $testLoginAdmin;
     }
 
-    public function imprintProvider(): iterable
+    public function pageProvider(): iterable
     {
         return [
-            'index_imprint_no_auth' => [
-                'route' => '/portal/legal',
+            'index_pages_no_auth' => [
+                'route' => '/portal/pages',
                 'method' => 'GET',
                 'isAuth' => false,
                 'isAdmin' => false,
@@ -59,8 +59,8 @@ class PortalControllerTest extends WebTestCase
                 'isForbidden' => false,
                 'isOk' => false,
             ],
-            'index_imprint_user_auth' => [
-                'route' => '/portal/legal',
+            'index_pages_user_auth' => [
+                'route' => '/portal/pages',
                 'method' => 'GET',
                 'isAuth' => true,
                 'isAdmin' => false,
@@ -68,8 +68,8 @@ class PortalControllerTest extends WebTestCase
                 'isForbidden' => false,
                 'isOk' => true,
             ],
-            'index_imprint_admin_auth' => [
-                'route' => '/portal/legal',
+            'index_pages_admin_auth' => [
+                'route' => '/portal/pages',
                 'method' => 'GET',
                 'isAuth' => true,
                 'isAdmin' => true,
@@ -77,8 +77,8 @@ class PortalControllerTest extends WebTestCase
                 'isForbidden' => false,
                 'isOk' => true,
             ],
-            'show_create_imprint_no_auth' => [
-                'route' => '/portal/legal/new',
+            'show_create_page_no_auth' => [
+                'route' => '/portal/pages/new',
                 'method' => 'GET',
                 'isAuth' => false,
                 'isAdmin' => false,
@@ -86,8 +86,8 @@ class PortalControllerTest extends WebTestCase
                 'isForbidden' => false,
                 'isOk' => false,
             ],
-            'show_create_imprint_user_auth' => [
-                'route' => '/portal/legal/new',
+            'show_create_page_user_auth' => [
+                'route' => '/portal/pages/new',
                 'method' => 'GET',
                 'isAuth' => true,
                 'isAdmin' => false,
@@ -95,35 +95,8 @@ class PortalControllerTest extends WebTestCase
                 'isForbidden' => true,
                 'isOk' => false,
             ],
-            'show_create_imprint_admin_auth' => [
-                'route' => '/portal/legal/new',
-                'method' => 'GET',
-                'isAuth' => true,
-                'isAdmin' => true,
-                'isRedirect' => false,
-                'isForbidden' => false,
-                'isOk' => true,
-            ],
-            'add_page_no_auth' => [
-                'route' => '/portal/new',
-                'method' => 'GET',
-                'isAuth' => false,
-                'isAdmin' => false,
-                'isRedirect' => true,
-                'isForbidden' => false,
-                'isOk' => false,
-            ],
-            'add_page_user_auth' => [
-                'route' => '/portal/new',
-                'method' => 'GET',
-                'isAuth' => true,
-                'isAdmin' => false,
-                'isRedirect' => false,
-                'isForbidden' => false,
-                'isOk' => true,
-            ],
-            'add_page_admin_auth' => [
-                'route' => '/portal/new',
+            'show_create_page_admin_auth' => [
+                'route' => '/portal/pages/new',
                 'method' => 'GET',
                 'isAuth' => true,
                 'isAdmin' => true,
@@ -135,9 +108,9 @@ class PortalControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider imprintProvider
+     * @dataProvider pageProvider
      */
-    public function testImprint(string $route, string $method, bool $isAuth, bool $isAdmin, bool $isRedirect, bool $isForbidden, bool $isOk)
+    public function testPage(string $route, string $method, bool $isAuth, bool $isAdmin, bool $isRedirect, bool $isForbidden, bool $isOk)
     {
         if ($isAuth) {
             if ($isAdmin) {
@@ -154,11 +127,11 @@ class PortalControllerTest extends WebTestCase
 
     }
 
-    public function imprintEditProvider(): iterable
+    public function pageEditProvider(): iterable
     {
         return [
-            'show_update_imprint_no_auth' => [
-                'route' => '/portal/legal/edit/',
+            'show_update_page_no_auth' => [
+                'route' => '/portal/pages/edit/',
                 'method' => 'GET',
                 'isAuth' => false,
                 'isAdmin' => false,
@@ -166,8 +139,8 @@ class PortalControllerTest extends WebTestCase
                 'isForbidden' => false,
                 'isOk' => false,
             ],
-            'show_update_imprint_user_auth' => [
-                'route' => '/portal/legal/edit/',
+            'show_update_page_user_auth' => [
+                'route' => '/portal/pages/edit/',
                 'method' => 'GET',
                 'isAuth' => true,
                 'isAdmin' => false,
@@ -175,8 +148,8 @@ class PortalControllerTest extends WebTestCase
                 'isForbidden' => false,
                 'isOk' => true,
             ],
-            'show_update_imprint_admin_auth' => [
-                'route' => '/portal/legal/edit/',
+            'show_update_page_admin_auth' => [
+                'route' => '/portal/pages/edit/',
                 'method' => 'GET',
                 'isAuth' => true,
                 'isAdmin' => true,
@@ -184,8 +157,8 @@ class PortalControllerTest extends WebTestCase
                 'isForbidden' => false,
                 'isOk' => true,
             ],
-            'delete_imprint_no_auth' => [
-                'route' => '/portal/legal/delete/',
+            'delete_page_no_auth' => [
+                'route' => '/portal/pages/delete/',
                 'method' => 'GET',
                 'isAuth' => false,
                 'isAdmin' => false,
@@ -193,8 +166,8 @@ class PortalControllerTest extends WebTestCase
                 'isForbidden' => false,
                 'isOk' => false,
             ],
-            'delete_imprint_user_auth' => [
-                'route' => '/portal/legal/delete/',
+            'delete_page_user_auth' => [
+                'route' => '/portal/pages/delete/',
                 'method' => 'GET',
                 'isAuth' => true,
                 'isAdmin' => false,
@@ -202,8 +175,8 @@ class PortalControllerTest extends WebTestCase
                 'isForbidden' => true,
                 'isOk' => false,
             ],
-            'delete_imprint_admin_auth' => [
-                'route' => '/portal/legal/delete/',
+            'delete_page_admin_auth' => [
+                'route' => '/portal/pages/delete/',
                 'method' => 'GET',
                 'isAuth' => true,
                 'isAdmin' => true,
@@ -215,14 +188,14 @@ class PortalControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider imprintEditProvider
+     * @dataProvider pageEditProvider
      */
-    public function testShowUpdateAndDeleteImprint(string $route, string $method, bool $isAuth, bool $isAdmin, bool $isRedirect, bool $isForbidden, bool $isOk)
+    public function testShowUpdateAndDeletePage(string $route, string $method, bool $isAuth, bool $isAdmin, bool $isRedirect, bool $isForbidden, bool $isOk)
     {
-        $testPortal = new Portal();
+        $testPortal = new PortalPage();
         $testPortal->setCountryCode('de');
-        $testPortal->setImprintLink('impressum');
-        $testPortal->setImprint("Impressum");
+        $testPortal->setPagePath('impressum');
+        $testPortal->setContent("Impressum");
         $this->portalRepository->add($testPortal);
 
         if ($isAuth) {
@@ -239,27 +212,27 @@ class PortalControllerTest extends WebTestCase
         $this->assertEquals($isOk, $this->client->getResponse()->isOk());
     }
 
-    public function imprintProviderWithPortal(): iterable
+    public function pageProviderWithPortal(): iterable
     {
         return [
-            'create_imprint_no_auth' => [
-                'route' => '/portal/legal/new',
+            'create_page_no_auth' => [
+                'route' => '/portal/pages/new',
                 'method' => 'POST',
                 'isAuth' => false,
                 'isAdmin' => false,
                 'isRedirect' => true,
                 'isForbidden' => false,
             ],
-            'create_imprint_user_auth' => [
-                'route' => '/portal/legal/new',
+            'create_page_user_auth' => [
+                'route' => '/portal/pages/new',
                 'method' => 'POST',
                 'isAuth' => true,
                 'isAdmin' => false,
                 'isRedirect' => false,
                 'isForbidden' => true,
             ],
-            'create_imprint_admin_auth' => [
-                'route' => '/portal/legal/new',
+            'create_page_admin_auth' => [
+                'route' => '/portal/pages/new',
                 'method' => 'POST',
                 'isAuth' => true,
                 'isAdmin' => true,
@@ -270,14 +243,14 @@ class PortalControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider imprintProviderWithPortal
+     * @dataProvider pageProviderWithPortal
      */
-    public function testImprintWithPortal(string $route, string $method, bool $isAuth, bool $isAdmin, bool $isRedirect, bool $isForbidden)
+    public function testPageWithPortal(string $route, string $method, bool $isAuth, bool $isAdmin, bool $isRedirect, bool $isForbidden)
     {
         $body = [
             'country_code' => $this->faker->countryCode(),
-            'imprint_link' => $this->faker->word(),
-            'imprint' => $this->faker->word(),
+            'page_path' => $this->faker->word(),
+            'content' => $this->faker->word(),
         ];
 
         if ($isAuth) {
@@ -293,43 +266,43 @@ class PortalControllerTest extends WebTestCase
         $this->assertEquals($isForbidden, $this->client->getResponse()->isForbidden());
     }
 
-    function testCreateImprint()
+    function testCreatePage()
     {
         $body = [
             'country_code' => $this->faker->countryCode(),
-            'imprint_link' => $this->faker->word(),
-            'imprint' => $this->faker->word(),
+            'page_path' => $this->faker->word(),
+            'content' => $this->faker->word(),
         ];
 
         $this->client->loginUser($this->getLoginAdmin());
           
-        $this->client->request('POST', '/portal/legal/new', $body);
+        $this->client->request('POST', '/portal/pages/new', $body);
 
-        $createdImprint = $this->portalRepository->findOneBy([
+        $createdPage = $this->portalRepository->findOneBy([
             'countryCode' => $body['country_code'],
         ]);
 
-        $this->assertNotNull($createdImprint);
-        $this->assertEquals($body['imprint_link'], $createdImprint->getImprintLink());
-        $this->assertEquals($body['imprint'], $createdImprint->getImprint());
+        $this->assertNotNull($createdPage);
+        $this->assertEquals($body['page_path'], $createdPage->getPagePath());
+        $this->assertEquals($body['content'], $createdPage->getContent());
     }
     
-    function testCreateImprintValidation()
+    function testCreatePageValidation()
     {
         $body = [
             'country_code' => 'pp',
-            'imprint_link' => $this->faker->word(),
-            'imprint' => $this->faker->word(),
+            'page_path' => $this->faker->word(),
+            'content' => $this->faker->word(),
         ];
 
         $this->client->loginUser($this->getLoginAdmin());
           
-        $this->client->request('POST', '/portal/legal/new', $body);
+        $this->client->request('POST', '/portal/pages/new', $body);
 
-        $createdImprint = $this->portalRepository->findOneBy([
+        $createdPage = $this->portalRepository->findOneBy([
             'countryCode' => $body['country_code'],
         ]);
 
-        $this->assertNull($createdImprint);
+        $this->assertNull($createdPage);
     }
 }

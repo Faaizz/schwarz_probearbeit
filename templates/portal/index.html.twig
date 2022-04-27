@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Manage Imprints {% endblock %}
+{% block title %} Manage Pages {% endblock %}
 
 {% block content %}
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-    <h3 class="text-dark mb-0">Imprint Management</h3>
+    <h3 class="text-dark mb-0">Page Management</h3>
     {% if is_granted('ROLE_ADMIN') %}
-    <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="{{ path('show_create_imprint') }}">
-        <i class="fas fa-plus fa-sm text-white-50"></i>&nbsp;Create New
+    <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="{{ path('show_create_page') }}">
+        <i class="fas fa-plus fa-sm text-white-50"></i>&nbsp;Create New Page
     </a>
     {% endif %}
 </div>
@@ -16,23 +16,23 @@
     <div class="col-lg-9 mb-4">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="text-primary fw-bold m-0">Portals List</h6>
+                <h6 class="text-primary fw-bold m-0">Pages List</h6>
             </div>
             <ul class="list-group list-group-flush">
                 {% for portal in portals %}
                 <li class="list-group-item">
                     <div class="row align-items-center no-gutters">
                         <div class="col me-2">
-                            <h6 class="mb-0"><strong>{{portal.countryCode}}</strong></h6>
+                            <h6 class="mb-0"><strong>{{portal.countryCode}}/{{portal.pagePath}}</strong></h6>
                         </div>
                         <div class="col-auto">
-                            <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="{{ path('show_update_imprint', {id: portal.id}) }}">
+                            <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="{{ path('show_update_page', {id: portal.id}) }}">
                                 <i class="fas fa-wrench fa-sm text-white-50"></i>
                                 &nbsp;Edit
                             </a>
                             <span class="text-xs">&nbsp; &nbsp; &nbsp;</span>
                             {% if is_granted('ROLE_ADMIN') %}
-                            <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="{{ path('delete_imprint', {id: portal.id}) }}">
+                            <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="{{ path('delete_page', {id: portal.id}) }}">
                                 <i class="fas fa-trash-alt fa-sm text-white-50"></i>
                                 &nbsp;Delete
                             </a>
