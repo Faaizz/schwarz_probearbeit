@@ -1,4 +1,19 @@
-## Problem Description
+- [Problem Description](#problem-description)
+    - [Introduction](#introduction)
+    - [Task 1](#task-1)
+    - [Task 2](#task-2)
+    - [Task 3](#task-3)
+    - [Task 4](#task-4)
+- [Solution](#solution)
+  - [Starting The Application](#starting-the-application)
+    - [Task 1: Mini-CMS](#task-1-mini-cms)
+      - [Navigation](#navigation)
+    - [Task 2: REST API](#task-2-rest-api)
+    - [Task 3: User Overview](#task-3-user-overview)
+    - [Task 4: Authentication](#task-4-authentication)
+  - [Testing The Application](#testing-the-application)
+
+# Problem Description
 Work on the tasks the same way you work on tasks in your everyday work.
 The written code should be protected by unit tests.
 There is no need to pay attention to the frontend design, but it can be supplemented with a bootstrap theme.
@@ -34,6 +49,7 @@ Implement a login for the CMS. The login can be implemented via a database or oA
 New pages and portals within the CMS may only be created and edited by the ROLE_ADMIN role. The ROLE_USER role only has read permission.
 
 
+# Solution
 
 ## Starting The Application
 To start a local development server:
@@ -42,30 +58,31 @@ docker-compose down && docker-compose up
 ```
 
 ### Task 1: Mini-CMS
-The base path for the Mini-CMS is `/legal/portal`. This gives the management page where portals and pages can be created, edited, and deleted.
+The base path for the Mini-CMS is [http://localhost:8000/legal/portal](http://localhost:8000/legal/portal). This gives the management page where portals and pages can be created, edited, and deleted.
+
+#### Navigation
+All available pages can be viewed on the path [http://localhost:8000/](http://localhost:8000/).
 
 ### Task 2: REST API
-The REST API is available at `/api/v1/legal/portal`.
-The CRUD endpoints are:
-- Create: POST `/api/v1/legal/portal`
-- Read: GET `/api/v1/legal/portal`
-- Update: PUT/PATCH `/api/v1/legal/portal/{id}`
-- Delete: DELETE `/api/v1/legal/portal/{id}`.
+API Docs available at: [http://localhost:8000/api/doc](http://localhost:8000/api/doc).
+The REST API is available at [http://localhost:8000/api/v1/legal/portal](http://localhost:8000/api/v1/legal/portal).
 
-API Docs available at: `/api/doc`
+The CRUD endpoints are:
+- Create: POST [http://localhost:8000/api/v1/legal/portal](http://localhost:8000/api/v1/legal/portal)
+- Read: GET [http://localhost:8000/api/v1/legal/portal](http://localhost:8000/api/v1/legal/portal)
+- Update: PUT/PATCH [http://localhost:8000/api/v1/legal/portal/{id}](http://localhost:8000/api/v1/legal/portal/{id})
+- Delete: DELETE [http://localhost:8000/api/v1/legal/portal/{id}](http://localhost:8000/api/v1/legal/portal/{id})
+
 
 ### Task 3: User Overview
-A table with retrieved users can be found at the path `http://localhost:8000/users`.
+A table with retrieved users can be found at the path [http://localhost:8000/users](http://localhost:8000/users).
 
 ### Task 4: Authentication
 Two users have been created for login:
 1. User: `admin` with password: `password` and roles: `[ROLE_USER, ROLE_ADMIN]`
 2. User: `user` with password: `password` and roles: `[ROLE_USER]`.
 
-Additional users can be created via the `/register` route.
-
-### Navigation
-All available pages can be viewed on the path `/`.
+Additional users can be created via the [http://localhost:8000/register](http://localhost:8000/users) route.
 
 
 ## Testing The Application
