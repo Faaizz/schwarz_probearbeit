@@ -82,7 +82,7 @@ Two users have been created for login:
 1. User: `admin` with password: `password` and roles: `[ROLE_USER, ROLE_ADMIN]`
 2. User: `user` with password: `password` and roles: `[ROLE_USER]`.
 
-Additional users can be created via the [http://localhost:8000/register](http://localhost:8000/register) route. And an existing user can login via [http://localhost:8000/register](http://localhost:8000/login)
+Additional users can be created via the [http://localhost:8000/register](http://localhost:8000/register) route. And an existing user can login via [http://localhost:8000/login](http://localhost:8000/login)
 
 
 ## Testing The Application
