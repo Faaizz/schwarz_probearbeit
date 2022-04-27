@@ -73,6 +73,7 @@ COPY .env.test .env
 
 # Install commposer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+RUN composer install
 
 COPY .docker/startup/test.docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
