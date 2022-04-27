@@ -54,7 +54,7 @@ New pages and portals within the CMS may only be created and edited by the ROLE_
 ## Starting The Application
 To start a local development server:
 ```sh
-docker-compose down && docker-compose up
+./startDevServer
 ```
 
 ### Task 1: Mini-CMS
@@ -82,7 +82,7 @@ Two users have been created for login:
 1. User: `admin` with password: `password` and roles: `[ROLE_USER, ROLE_ADMIN]`
 2. User: `user` with password: `password` and roles: `[ROLE_USER]`.
 
-Additional users can be created via the [http://localhost:8000/register](http://localhost:8000/users) route.
+Additional users can be created via the [http://localhost:8000/register](http://localhost:8000/register) route. And an existing user can login via [http://localhost:8000/register](http://localhost:8000/login)
 
 
 ## Testing The Application
