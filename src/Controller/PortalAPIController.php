@@ -10,10 +10,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-#[Route('/api/v1/legal')]
+#[Route('/api/v1/portal')]
 class PortalAPIController extends AbstractController
 {
-    #[Route('/portal', methods: ['GET'])]
+    #[Route('/legal', methods: ['GET'])]
     public function index(PortalLogic $portalLogic): Response
     {
         $portals = $portalLogic->index();
@@ -23,7 +23,7 @@ class PortalAPIController extends AbstractController
         ]);
     }
 
-    #[Route('/portal', methods: ['POST'])]
+    #[Route('/legal', methods: ['POST'])]
     public function create(Request $request, PortalLogic $portalLogic): Response
     {
         $requestParams = json_decode($request->getContent(), true);
@@ -36,13 +36,13 @@ class PortalAPIController extends AbstractController
                     'title' => 'Validation Error',
                     'message' => $result->get(0),
                 ],
-            ]);
+            ], 400);
         }
 
-        return $this->json(['portal' => $result]);
+        return $this->json(['portal' => $result], 201);
     }
 
-    #[Route('/portal/{id}', methods: ['PUT', 'PATCH'])]
+    #[Route('/legal/{id}', methods: ['PUT'])]
     public function update(Request $request, PortalRepository $portalRepository, PortalLogic $portalLogic, int $id): Response
     {
         $portal = $portalRepository->find($id);
@@ -53,7 +53,7 @@ class PortalAPIController extends AbstractController
                     'title' => 'Not Found',
                     'message' => 'Portal Not Found',
                 ],
-            ]);
+            ], 404);
         }
 
         $requestParams = json_decode($request->getContent(), true);
@@ -62,9 +62,20 @@ class PortalAPIController extends AbstractController
         return $this->json(['portal' => $portal]);
     }
 
-    #[Route('/portal/{id}', methods: ['DELETE'])]
-    public function delete(PortalLogic $portalLogic, int $id): Response
+    #[Route('/legal/{id}', methods: ['DELETE'])]
+    public function delete(PortalLogic $portalLogic, PortalRepository $portalRepository, int $id): Response
     {
+        $portal = $portalRepository->find($id);
+        if (!isset($portal)) {
+            return $this->json([
+                'error' => [
+                    'code' => 404,
+                    'title' => 'Not Found',
+                    'message' => 'Portal Not Found',
+                ],
+            ], 404);
+        }
+
         $portalLogic->delete($id);
 
         return $this->json(['status' => 'success']);
