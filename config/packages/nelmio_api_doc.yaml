@@ -1,0 +1,156 @@
+nelmio_api_doc:
+    documentation:      
+        openapi: 3.0.0
+        info:
+            title: Mini CMS
+            description: This is the API of theImprint Portal of Mini CMS.
+            version: '1.0'
+        paths:
+            /api/v1/portal/legal:
+                get:
+                    description: To get the current legal pages.
+                    responses:
+                        '200':
+                            description: Got the current legal pages successfully.
+                            content:
+                                application/json:
+                                    schema:
+                                        $ref: '#/components/schemas/PortalImprints'
+                post:
+                    description: To create a new legal portal page.
+                    requestBody:
+                        description: Legal portal page content.
+                        content:
+                            application/json:
+                                schema:
+                                    $ref: '#/components/schemas/PortalImprint'
+                    responses:
+                        '201':
+                            description: Created a new legal page successfully.
+                            content:
+                                application/json:
+                                    schema:
+                                        $ref: '#/components/schemas/PortalImprintResponse'
+                        '400':
+                            description: Validation error occured.
+                            content:
+                                application/json:
+                                    schema:
+                                        $ref: '#/components/schemas/GeneralError'
+            /api/v1/portal/legal/{id}:
+                put:
+                    description: To update a legal portal page.
+                    parameters:
+                        - name: id
+                          in: path
+                          required: true
+                          schema:
+                            type: integer
+                    requestBody:
+                        description: Legal portal page content.
+                        content:
+                            application/json:
+                                schema:
+                                    $ref: '#/components/schemas/PortalImprintFragment'
+                    responses:
+                        '200':
+                            description: Updated a legal page successfully.
+                            content:
+                                application/json:
+                                    schema:
+                                        $ref: '#/components/schemas/PortalImprintResponse'
+                        '404':
+                            description: Not found error occured.
+                            content:
+                                application/json:
+                                    schema:
+                                        $ref: '#/components/schemas/GeneralError'
+                delete:
+                    description: To delete a legal portal page.
+                    parameters:
+                        - name: id
+                          in: path
+                          required: true
+                          schema:
+                            type: integer
+                    responses:
+                        '200':
+                            description: Updated a legal page successfully.
+                            content:
+                                application/json:
+                                    schema:
+                                        $ref: '#/components/schemas/PortalImprintResponse'
+                        '404':
+                            description: Not found error occured.
+                            content:
+                                application/json:
+                                    schema:
+                                        $ref: '#/components/schemas/GeneralError'
+        components:
+            schemas:
+                GeneralError:
+                    allOf:
+                        - type: object
+                          required:
+                            - code
+                            - title
+                            - message
+                          properties:
+                            code:
+                                description: The error code
+                                type: integer
+                                example: 400
+                            title:
+                                description: The error title
+                                type: string
+                                example: 'Validation Error'
+                            message:
+                                description: The error message
+                                type: string
+                                example: 'Not a valid countryCode'
+                PortalImprintFragment:
+                    allOf:
+                        - type: object
+                          required:
+                            - imprintLink
+                            - imprint
+                          properties:
+                            imprintLink:
+                                description: The imprint link which is attached to the portal countryCode to access the portal imprint.
+                                type: string
+                                example: 'impressum'
+                            imprint:
+                                description: The actual content of the imprint.
+                                type: string
+                                example: 'This website is operated by:\r\n\r\nSchwarz Unternehmenskommunikation GmbH & Co. KG\r\nStiftsbergstraße 1\r\n74172 Neckarsulm, Germany\r\nLocation: Neckarsulm\r\nAmtsgericht Stuttgart (Local Court): HRA 735837\r\nVAT ID no.: DE325553499\r\n\r\nSchwarz Unternehmenskommunikation GmbH & Co. KG is represented by the Schwarz Unternehmenskommunikation Beteiligungs-GmbH based in Neckarsulm, registered with registration court Stuttgart HRB 769866, which in turn is represented by two managing directors with authority of joint representation, Gerd Wolf and Leonie Knorpp.\r\n\r\nPhone: + 49 (0)7132 – 30788600\r\nE-mail: kontakt@mail.schwarz\r\n\r\n'
+                PortalImprint:
+                    allOf:
+                        - $ref: '#/components/schemas/PortalImprintFragment'
+                        - type: object
+                          required:
+                            - countryCode
+                          properties:
+                            countryCode:
+                                description: The portal countryCode
+                                type: string
+                                example: 'de'
+                PortalImprintResponse:
+                    allOf:
+                        - $ref: '#/components/schemas/PortalImprint'
+                        - type: object
+                          required:
+                            - id
+                          properties:
+                            id:
+                                description: The imprint id
+                                type: string
+                                example: '4'
+                PortalImprints:
+                    allOf:
+                        - type: array
+                          items:
+                            $ref: '#/components/schemas/PortalImprintResponse'
+
+    areas: # to filter documented areas
+        path_patterns:
+            - ^/api(?!/doc$) # Accepts routes under /api except /api/doc
