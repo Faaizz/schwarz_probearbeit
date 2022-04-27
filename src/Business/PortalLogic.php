@@ -30,8 +30,8 @@ class PortalLogic
     public function create(string $countryCode, string $imprintLink, string $imprint): Portal | ConstraintViolationListInterface
     {
         $portal = new Portal();
-        $portal->setCountryCode(strtolower($countryCode));
-        $portal->setImprintLink(strtolower($imprintLink));
+        $portal->setCountryCode(strtoupper($countryCode));
+        $portal->setImprintLink(($imprintLink));
         $portal->setImprint($imprint);
 
         $errors = $this->validator->validate($portal);
